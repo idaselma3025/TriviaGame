@@ -1,0 +1,54 @@
+.buckingham{
+width:75%;
+
+}
+body{
+  width:100%;
+  position:relative;
+  background-image: url("../images/flag.jpeg");
+}
+.crownImage{
+  width:100%;
+
+}
+#answers{
+  height:200px;
+  width:75%;
+  background-color: green;
+  position:relative;
+
+}
+#question{
+  height:50px;
+  width:75%;
+  background-color: white;
+  text-decoration-color: black;
+  z-index: 2;
+}
+#countDown{
+  height:50px;
+  width:75%;
+  background-color: purple;
+}
+h3{
+  width:75%;
+  text-align: center;
+}
+ul{
+  width:75%;
+  position:absolute;
+  left:290px;
+}
+li{
+  list-style: none;
+}
+.button{
+  width:50%;
+  height:40px;
+}
+.main{
+  width:100%;
+  margin: 0 auto;
+  position:absolute;
+  left:150px;
+}
