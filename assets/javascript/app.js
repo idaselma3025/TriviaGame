@@ -12,13 +12,18 @@ function decrement() {
   number--;
   $("#countDown").html("<h2>" + number + "</h2>");
   if (number === 0) {
+    ++unansweredCounter;
     stop();
-    alert("Time Up!");
+    clearScreen();
+    $("#question").text("Out of Time!");
+    setTimeout(renderQuestion,3000);
+    number =10;
   }
 }
 
 function stop() {
   clearInterval(intervalId);
+  ++questionIndex;
 }
 
 // run();
@@ -59,9 +64,18 @@ function renderQuestion(){
     $("#question").text(questions[questionIndex].question);
     createButtons();
     findAnswers();
+    run();
   }
   else{
 clearScreen();
+$("#question").text("All Done Here's How You Did");
+var winScore =$("<div>");
+var lossScore =$("<div>");
+var unansweredScore =$("<div>");
+winScore.text("Correct Answers: " +winCounter);
+lossScore.text("Wrong Answers: " + lossCounter);
+unansweredScore.text("Timeout Answers: " +unansweredCounter);
+$("#answers").append(winScore,lossScore, unansweredScore);
   }
 };
 
@@ -86,17 +100,19 @@ $(".button").on("click",function(){
   var tryGuess = ($(this).attr("data-q"));
   if (tryGuess === questions[questionIndex].answer){
     ++winCounter;
-    ++questionIndex;
      clearScreen();
+     stop();
      $("#question").text("Correct!");
      setTimeout(renderQuestion, 3000);
+     number=10;
   }
   else{
     ++lossCounter;
-    ++questionIndex;
      clearScreen();
+     stop();
      $("#question").text("Wrong!");
      setTimeout(renderQuestion,3000);
+     number=10;
   }
 });
 };
