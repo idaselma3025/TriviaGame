@@ -28,7 +28,7 @@ body{
 #countDown{
   height:50px;
   width:75%;
-  background-color: purple;
+  background-color: white;
 }
 h3{
   width:75%;
@@ -51,4 +51,14 @@ li{
   margin: 0 auto;
   position:absolute;
   left:150px;
+  display:none;
+}
+.start{
+  width:50%;
+  height:40px;
+  position: absolute;
+  top: 320px;
+  left:350px;
+  font-size:24px;
+  font-weight: bold;
 }
