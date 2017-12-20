@@ -1,6 +1,6 @@
 
 //VARIABLES
-var number = 10; //variable to set countdown number
+var number = 11; //variable to set countdown number
 var intervalId; //variable to hold decremented countdown number
 var questionIndex = 0;//variable to hold current index of guesses array
 var newGuess; //variable to hold newly created button to hold on item from the "guesses" Array
@@ -9,31 +9,38 @@ var lossCounter=0; //variable to hold number of losses during round
 var unansweredCounter=0;// variable to hold number o timeouts during round
 var searchAnswer;
 var answerSearch;
+var giphyAnswer;
+var newList; //variable to hold button unordered list
 var questions = [
   {
-    "question":"What the name of Queen Elizabeth's sister?",
+    "question":"What was the name of Queen Elizabeth's sister?",
     "guesses":["Mary","Jane","Wilemina","Margaret"],
-    "answer":"Margaret"
+    "answer":"Margaret",
+    "giphyId":["9LnxA8X7VSnbW","tHO6AF6e1tfm8"]
   },
   {
-    "question":"How many children did Queen Elizabeth have?",
-    "guesses":["four","none","two","three"],
-    "answer":"four"
+    "question":"How many children does Queen Elizabeth have?",
+    "guesses":["two","none","four","three"],
+    "answer":"four",
+    "giphyId":["xULW8v0NAKXQjo3Kfu","n4uQI5M4lpWzm"]
   },
   {
     "question":"What year was Queen Elizabeth II crowned?",
-    "guesses":["1953","1960","1949","1957"],
-    "answer":"1953"
+    "guesses":["1957","1960","1949","1953"],
+    "answer":"1953",
+    "giphyId":["gskzHEG5SWM3m","QNHsUgzeuVWsU"]
   },
   {
     "question":"What was the Queen's role in WWII?",
     "guesses":["Queen","mechanic","ambassador","medic"],
-    "answer":"mechanic"
+    "answer":"mechanic",
+    "giphyId":["xULW8GDfJGgpptCb4s","2k4CSOMmoFZYc"]
   },
   {
     "question":"Where does the Queen and her family live?",
     "guesses":["Buckingham Palace","King's Landing","Windsor Castle","Winterfell"],
-    "answer":"Buckingham Palace"
+    "answer":"Buckingham Palace",
+    "giphyId":["3o7528Oqfsq6cyyjHW","cv6XZnaAjV408"]
   },
 ]; //question array
 
@@ -45,7 +52,8 @@ $(".start").on("click",function(){
 })
 $(document).on("click",".replay",function(){
   giantObject.clearScreen();
-  $("#answers").empty();
+  $("#answerList").empty();
+  $("#answerScore").empty();
   questionIndex = 0;
   giantObject.renderQuestion();
   winCounter = 0;
@@ -56,12 +64,14 @@ $(document).on("click",".replay",function(){
 var giantObject = {
   decrement: function (){
     number--;
-    $("#countDown").html("<h2>" + number + "</h2>");
+    $("#countDown").html("<h2>" + "Time remaining: " + number + "</h2>");
     if (number === 0) {
       ++unansweredCounter;
       giantObject.nextQuestion();
       $("#question").text("Out of Time!");
       giantObject.rightAnswer();
+      giphyAnswer = questions[questionIndex-1].giphyId[0];
+      giantObject.searchGiphy(giphyAnswer);
     }
   },
   run: function (){
@@ -81,13 +91,13 @@ var giantObject = {
     }
   },
   createButtons: function (){
+    $(".gifs").remove();
     for (var i = 0; i<questions[questionIndex].guesses.length; i++){
-      newGuess = $("<button>");
+      newGuess = $("<li>");
       newGuess.addClass("button");
       newGuess.attr("data-q", questions[questionIndex].guesses[i]);
       newGuess.text(questions[questionIndex].guesses[i]);
-      $("#answers").append(newGuess);
-
+      $("#answerList").append(newGuess);
     }
   },
   findAnswers: function(){
@@ -96,7 +106,10 @@ var giantObject = {
       if (tryGuess === questions[questionIndex].answer){
         ++winCounter;
         giantObject.nextQuestion();
-        $("#question").text("Correct!");
+        $("#question").text("Correct! The Queen couldn't be happier with you!");
+        giphyAnswer = questions[questionIndex-1].giphyId[1];
+        giantObject.searchGiphy(giphyAnswer);
+
       }
       else if (tryGuess != questions[questionIndex].answer){
         // answerSearch = questions[questionIndex].answer;
@@ -104,7 +117,8 @@ var giantObject = {
         giantObject.nextQuestion();
         $("#question").text("Wrong!");
         giantObject.rightAnswer();
-        giantObject.searchGiphy(searchAnswer);
+        giphyAnswer = questions[questionIndex-1].giphyId[0];
+        giantObject.searchGiphy(giphyAnswer);
       }
     });
   },
@@ -119,7 +133,7 @@ var giantObject = {
     winScore.text("Correct Answers: " +winCounter);
     lossScore.text("Wrong Answers: " + lossCounter);
     unansweredScore.text("Timeout Answers: " +unansweredCounter);
-    $("#answers").append(winScore,lossScore, unansweredScore, playAgain);
+    $("#answerScore").append(winScore,lossScore, unansweredScore, playAgain);
   },
   nextQuestion: function(){
     giantObject.stop();
@@ -134,25 +148,25 @@ var giantObject = {
   clearScreen: function(){
     $("#question").empty();
     $(".button").remove();
+    $(".gifs").remove();
   },
   rightAnswer: function(){
     var rightAnswer = $("<div>");
     searchAnswer = questions[questionIndex-1].answer;
     rightAnswer.addClass("correctAnswer");
     rightAnswer.text("The correct answer was " + searchAnswer);
-    $("#answers").append(rightAnswer);
+    $("#question").append(rightAnswer);
   },
-  searchGiphy : function(searchAnswer){
-  var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + searchAnswer + "&api_key=H5NnYWud8bpvU4ICC178EnuAHbGH056M";
-  $.ajax({
-    url: queryURL,
-    method: "GET"
-  }).done(function(response) {
-    giantObject.createImage(response);
-  })
-},
-createImage : function(data){
-  var wrongImage = $('<div><img src="' + data.url + '" /></div>');
-  $("#answers").append(wrongImage);
-}
+  searchGiphy : function(giphyAnswer){
+    var queryURL = "https://api.giphy.com/v1/gifs/" + giphyAnswer + "?api_key=H5NnYWud8bpvU4ICC178EnuAHbGH056M";
+    $.ajax({
+      url: queryURL,
+      method: "GET"
+    }).done(function(data) {
+      var imgDiv = $("<img>").attr("src",data.data.images.downsized.url);
+      imgDiv.addClass("gifs");
+      $("#answers").append(imgDiv);
+      // console.log(data);
+    })
+  }
 };
