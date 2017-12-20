@@ -16,13 +16,13 @@ var questions = [
     "question":"What was the name of Queen Elizabeth's sister?",
     "guesses":["Mary","Jane","Wilemina","Margaret"],
     "answer":"Margaret",
-    "giphyId":["9LnxA8X7VSnbW","tHO6AF6e1tfm8"]
+    "giphyId":["9LnxA8X7VSnbW","12krUPvRraYSBi"]
   },
   {
     "question":"How many children does Queen Elizabeth have?",
     "guesses":["two","none","four","three"],
     "answer":"four",
-    "giphyId":["xULW8v0NAKXQjo3Kfu","n4uQI5M4lpWzm"]
+    "giphyId":["3oFzmj7BeU70XMdW9O","n4uQI5M4lpWzm"]
   },
   {
     "question":"What year was Queen Elizabeth II crowned?",
