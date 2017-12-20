@@ -138,8 +138,8 @@ var giantObject = {
   nextQuestion: function(){
     giantObject.stop();
     giantObject.clearScreen();
-    setTimeout(giantObject.renderQuestion,3000);
-    number = 10;
+    setTimeout(giantObject.renderQuestion,5000);
+    number = 11;
   },
   stop: function(){
     clearInterval(intervalId);

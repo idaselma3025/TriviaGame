@@ -80,7 +80,7 @@ li{
 }
 #answerScore{
   position:relative;
-  left:25px;
+  /* left:25px; */
   text-align: center;
 }
 .replay{
