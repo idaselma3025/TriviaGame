@@ -112,7 +112,6 @@ var giantObject = {
 
       }
       else if (tryGuess != questions[questionIndex].answer){
-        // answerSearch = questions[questionIndex].answer;
         ++lossCounter;
         giantObject.nextQuestion();
         $("#question").text("Wrong!");
@@ -166,7 +165,6 @@ var giantObject = {
       var imgDiv = $("<img>").attr("src",data.data.images.downsized.url);
       imgDiv.addClass("gifs");
       $("#answers").append(imgDiv);
-      // console.log(data);
     })
   }
 };
