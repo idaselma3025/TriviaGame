@@ -7,6 +7,8 @@ var newGuess; //variable to hold newly created button to hold on item from the "
 var winCounter=0; //variable to hold number of wins during round
 var lossCounter=0; //variable to hold number of losses during round
 var unansweredCounter=0;// variable to hold number o timeouts during round
+var searchAnswer;
+var answerSearch;
 var questions = [
   {
     "question":"What the name of Queen Elizabeth's sister?",
@@ -59,12 +61,14 @@ var giantObject = {
       ++unansweredCounter;
       giantObject.nextQuestion();
       $("#question").text("Out of Time!");
+      giantObject.rightAnswer();
     }
   },
   run: function (){
     intervalId = setInterval(giantObject.decrement, 1000);
   },
   renderQuestion: function(){
+    $(".correctAnswer").remove();
     if (questionIndex <= (questions.length-1)){
       $("#question").text(questions[questionIndex].question);
       giantObject.createButtons();
@@ -94,10 +98,13 @@ var giantObject = {
         giantObject.nextQuestion();
         $("#question").text("Correct!");
       }
-      else{
+      else if (tryGuess != questions[questionIndex].answer){
+        // answerSearch = questions[questionIndex].answer;
         ++lossCounter;
         giantObject.nextQuestion();
         $("#question").text("Wrong!");
+        giantObject.rightAnswer();
+        giantObject.searchGiphy(searchAnswer);
       }
     });
   },
@@ -127,5 +134,25 @@ var giantObject = {
   clearScreen: function(){
     $("#question").empty();
     $(".button").remove();
-  }
+  },
+  rightAnswer: function(){
+    var rightAnswer = $("<div>");
+    searchAnswer = questions[questionIndex-1].answer;
+    rightAnswer.addClass("correctAnswer");
+    rightAnswer.text("The correct answer was " + searchAnswer);
+    $("#answers").append(rightAnswer);
+  },
+  searchGiphy : function(searchAnswer){
+  var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + searchAnswer + "&api_key=H5NnYWud8bpvU4ICC178EnuAHbGH056M";
+  $.ajax({
+    url: queryURL,
+    method: "GET"
+  }).done(function(response) {
+    giantObject.createImage(response);
+  })
+},
+createImage : function(data){
+  var wrongImage = $('<div><img src="' + data.url + '" /></div>');
+  $("#answers").append(wrongImage);
+}
 };
