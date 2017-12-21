@@ -7,10 +7,8 @@ var newGuess; //variable to hold newly created button to hold on item from the "
 var winCounter=0; //variable to hold number of wins during round
 var lossCounter=0; //variable to hold number of losses during round
 var unansweredCounter=0;// variable to hold number o timeouts during round
-var searchAnswer;
-var answerSearch;
-var giphyAnswer;
-var newList; //variable to hold button unordered list
+var searchAnswer;//variable to hold current correct answer
+var giphyAnswer; //variable to hold the array item of the giphyId
 var questions = [
   {
     "question":"What was the name of Queen Elizabeth's sister?",
@@ -78,7 +76,6 @@ var giantObject = {
     intervalId = setInterval(giantObject.decrement, 1000);
   },
   renderQuestion: function(){
-    $(".correctAnswer").remove();
     if (questionIndex <= (questions.length-1)){
       $("#question").text(questions[questionIndex].question);
       giantObject.run();
