@@ -84,11 +84,11 @@ li{
   display:none;
 }
 .start{
-  width:50%;
+  width:25%;
   height:40px;
   position: absolute;
   top: 320px;
-  left:350px;
+  left:525px;
   font-size:24px;
   font-weight: bold;
 }
