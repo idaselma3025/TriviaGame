@@ -33,14 +33,14 @@ border-image: url("../images/queeny_final.png") 153 193 135 fill repeat;
   text-align: center;
   margin: 0;
   line-height: 50px;
-  font-size: 18px;
+  font-size: 24px;
 }
 #countDown{
   height:50px;
   width:75%;
   background-color: white;
   text-align: center;
-  line-height: 25px;
+  line-height: 50px;
   border-style: solid;
 border-width: 62px 0px 0px;
 -moz-border-image: url(queeny_final.png) 151 193 121 192 repeat;
@@ -76,10 +76,6 @@ li{
   line-height: 40px;
   font-size: 24px;
 }
-/* .button{
-  width:50%;
-  height:40px;
-} */
 .main{
   width:100%;
   margin: 0 auto;
@@ -113,8 +109,23 @@ li{
   height:40px;
   font-size:24px;
   font-weight: bold;
+  position:absolute;
+  top:150px;
+  right:290px;
 }
 .correctAnswer{
   height:50px;
   width:100%;
+}
+#countDown{
+  font-size: 24px;
+}
+#countDownNum{
+  display:inline;
+  font-size: 24px;
+  font-weight: bold;
+}
+.scores{
+  line-height: 35px;
+  font-size: 24px;
 }

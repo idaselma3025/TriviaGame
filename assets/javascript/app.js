@@ -1,6 +1,6 @@
 
 //VARIABLES
-var number = 11; //variable to set countdown number
+var number = 10; //variable to set countdown number
 var intervalId; //variable to hold decremented countdown number
 var questionIndex = 0;//variable to hold current index of guesses array
 var newGuess; //variable to hold newly created button to hold on item from the "guesses" Array
@@ -41,7 +41,6 @@ var questions = [
     "giphyId":["3o7528Oqfsq6cyyjHW","cv6XZnaAjV408"]
   },
 ]; //question array
-
 //getting Started function
 $(".start").on("click",function(){
   $(".main").show();
@@ -62,12 +61,12 @@ $(document).on("click",".replay",function(){
 var giantObject = {
   decrement: function (){
     number--;
-    $("#countDown").html("<h2>" + "Time remaining: " + number + "</h2>");
+    $("#countDownNum").html(number);
     if (number === 0) {
       ++unansweredCounter;
       giantObject.nextQuestion();
       searchAnswer = questions[questionIndex-1].answer;
-      $("#question").text("Out of Time! The correct answer was " +  searchAnswer);
+      $("#question").text("Out of Time! Too slow, peasant! The correct answer was: " +  searchAnswer+".");
       giphyAnswer = questions[questionIndex-1].giphyId[0];
       giantObject.searchGiphy(giphyAnswer);
     }
@@ -78,6 +77,7 @@ var giantObject = {
   renderQuestion: function(){
     if (questionIndex <= (questions.length-1)){
       $("#question").text(questions[questionIndex].question);
+      $("#countDownNum").html("10");
       giantObject.run();
       giantObject.createButtons();
       giantObject.findAnswers();
@@ -95,15 +95,23 @@ var giantObject = {
       newGuess.attr("data-q", questions[questionIndex].guesses[i]);
       newGuess.text(questions[questionIndex].guesses[i]);
       $("#answerList").append(newGuess);
+      giantObject.hoverButtons();
     }
   },
+  hoverButtons : function(){
+    $(".button").hover(function(){
+      $(this).css("background-color","midnightblue")
+    }, function(){
+      $(this).css("background-color","firebrick")
+  });
+},
   findAnswers: function(){
     $(".button").on("click",function(){
       var tryGuess = ($(this).attr("data-q"));
       if (tryGuess === questions[questionIndex].answer){
         ++winCounter;
         giantObject.nextQuestion();
-        $("#question").text("Correct! The Queen couldn't be happier with you!");
+        $("#question").text("Correct! Well done, loyal subject!");
         giphyAnswer = questions[questionIndex-1].giphyId[1];
         giantObject.searchGiphy(giphyAnswer);
 
@@ -112,7 +120,7 @@ var giantObject = {
         ++lossCounter;
         giantObject.nextQuestion();
         searchAnswer = questions[questionIndex-1].answer;
-        $("#question").text("Wrong! The correct answer was " + searchAnswer);
+        $("#question").text("Wrong! Try harder, plebeian. The correct answer was: " + searchAnswer+".");
         giphyAnswer = questions[questionIndex-1].giphyId[0];
         giantObject.searchGiphy(giphyAnswer);
       }
@@ -126,9 +134,12 @@ var giantObject = {
     var playAgain = $("<button>");
     playAgain.addClass("replay");
     playAgain.text("Press to Play Again!");
+    winScore.addClass("scores");
     winScore.text("Correct Answers: " +winCounter);
     lossScore.text("Wrong Answers: " + lossCounter);
+    lossScore.addClass("scores");
     unansweredScore.text("Timeout Answers: " +unansweredCounter);
+    unansweredScore.addClass("scores");
     $("#answerScore").append(winScore,lossScore, unansweredScore, playAgain);
   },
   nextQuestion: function(){
@@ -137,7 +148,7 @@ var giantObject = {
     setTimeout(giantObject.renderQuestion,5000);
   },
   stop: function(){
-    number=11;
+    number=10;
     clearInterval(intervalId);
     ++questionIndex;
   },
