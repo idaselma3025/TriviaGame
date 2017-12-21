@@ -68,8 +68,8 @@ var giantObject = {
     if (number === 0) {
       ++unansweredCounter;
       giantObject.nextQuestion();
-      $("#question").text("Out of Time!");
-      giantObject.rightAnswer();
+      searchAnswer = questions[questionIndex-1].answer;
+      $("#question").text("Out of Time! The correct answer was " +  searchAnswer);
       giphyAnswer = questions[questionIndex-1].giphyId[0];
       giantObject.searchGiphy(giphyAnswer);
     }
@@ -81,9 +81,9 @@ var giantObject = {
     $(".correctAnswer").remove();
     if (questionIndex <= (questions.length-1)){
       $("#question").text(questions[questionIndex].question);
+      giantObject.run();
       giantObject.createButtons();
       giantObject.findAnswers();
-      giantObject.run();
     }
     else{
       giantObject.clearScreen();
@@ -114,8 +114,8 @@ var giantObject = {
       else if (tryGuess != questions[questionIndex].answer){
         ++lossCounter;
         giantObject.nextQuestion();
-        $("#question").text("Wrong!");
-        giantObject.rightAnswer();
+        searchAnswer = questions[questionIndex-1].answer;
+        $("#question").text("Wrong! The correct answer was " + searchAnswer);
         giphyAnswer = questions[questionIndex-1].giphyId[0];
         giantObject.searchGiphy(giphyAnswer);
       }
@@ -138,9 +138,9 @@ var giantObject = {
     giantObject.stop();
     giantObject.clearScreen();
     setTimeout(giantObject.renderQuestion,5000);
-    number = 11;
   },
   stop: function(){
+    number=11;
     clearInterval(intervalId);
     ++questionIndex;
   },
@@ -148,13 +148,6 @@ var giantObject = {
     $("#question").empty();
     $(".button").remove();
     $(".gifs").remove();
-  },
-  rightAnswer: function(){
-    var rightAnswer = $("<div>");
-    searchAnswer = questions[questionIndex-1].answer;
-    rightAnswer.addClass("correctAnswer");
-    rightAnswer.text("The correct answer was " + searchAnswer);
-    $("#question").append(rightAnswer);
   },
   searchGiphy : function(giphyAnswer){
     var queryURL = "https://api.giphy.com/v1/gifs/" + giphyAnswer + "?api_key=H5NnYWud8bpvU4ICC178EnuAHbGH056M";

@@ -1,5 +1,5 @@
 .buckingham{
-width:75%;
+width:50%;
 
 }
 body{
@@ -8,7 +8,7 @@ body{
   background-image: url("../images/flag.jpeg");
 }
 .crownImage{
-  width:100%;
+  width:75%;
 
 }
 #answers{
@@ -16,7 +16,14 @@ body{
   width:75%;
   background-color: white;
   position:absolute;
-
+  padding-bottom: 20px;
+  font-size: 18px;
+  border-style: solid;
+border-width: 0px 0px 55px;
+-moz-border-image: url(queeny_final.png) 153 193 135 repeat;
+-webkit-border-image: url(queeny_final.png) 153 193 135 repeat;
+-o-border-image: url(queeny_final.png) 153 193 135 repeat;
+border-image: url("../images/queeny_final.png") 153 193 135 fill repeat;
 }
 #question{
   height:50px;
@@ -24,13 +31,22 @@ body{
   background-color: white;
   text-decoration-color: black;
   text-align: center;
-
+  margin: 0;
+  line-height: 50px;
+  font-size: 18px;
 }
 #countDown{
   height:50px;
   width:75%;
   background-color: white;
   text-align: center;
+  line-height: 25px;
+  border-style: solid;
+border-width: 62px 0px 0px;
+-moz-border-image: url(queeny_final.png) 151 193 121 192 repeat;
+-webkit-border-image: url(queeny_final.png) 151 193 121 192 repeat;
+-o-border-image: url(queeny_final.png) 151 193 121 192 repeat;
+border-image: url("../images/queeny_final.png") 151 193 121 192 fill repeat;
 }
 h3{
   width:25%;
@@ -41,11 +57,6 @@ h3{
   position:relative;
   left: 350px;
   border-style: solid;
-  border-width: 62px 0px 49px;
-  -moz-border-image: url(queen2.png) 153 216 152 213 repeat;
-  -webkit-border-image: url(queen2.png) 153 216 152 213 repeat;
-  -o-border-image: url(queen2.png) 153 216 152 213 repeat;
-  border-image: url("../images/queen2.png") 153 216 152 213 fill repeat;
 }
 ul{
   width:75%;
@@ -63,6 +74,7 @@ li{
   color: white;
   list-style: none;
   line-height: 40px;
+  font-size: 24px;
 }
 /* .button{
   width:50%;
@@ -72,7 +84,7 @@ li{
   width:100%;
   margin: 0 auto;
   position:absolute;
-  left:150px;
+  left:175px;
   display:none;
 }
 .start{
@@ -88,6 +100,7 @@ li{
   width:25%;
   height: 75%;
   position:relative;
+  top:25px;
   left:400px;
 }
 #answerScore{
@@ -100,4 +113,8 @@ li{
   height:40px;
   font-size:24px;
   font-weight: bold;
+}
+.correctAnswer{
+  height:50px;
+  width:100%;
 }
