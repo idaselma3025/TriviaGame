@@ -91,7 +91,7 @@ var game = {
   },
   findAnswers: function(e){
     clearInterval(timer);
-    if ($(e.target).data("q") === questions[game.currentQuestion].answer){
+    if ($(e.target).data("q") == questions[game.currentQuestion].answer){
       game.answeredCorrectly();
     }
     else if ($(e.targt).data("q")!= questions[game.currentQuestion].answer){
@@ -154,7 +154,7 @@ var game = {
     winScore.text("Correct Answers: " + game.winCounter);
     lossScore.text("Wrong Answers: " + game.lossCounter);
     lossScore.addClass("scores");
-    unansweredScore.text("Timeout Answers: " +game.unansweredCounter);
+    unansweredScore.text("Timeout Answers: " + game.unansweredCounter);
     unansweredScore.addClass("scores");
     $("#answerScore").append(winScore,lossScore, unansweredScore, playAgain);
   },
